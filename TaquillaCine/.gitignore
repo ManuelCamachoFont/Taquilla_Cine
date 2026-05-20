@@ -2,7 +2,7 @@
 
 # Ignorar configuración de IntelliJ
 .idea/
-*.iml
+.iml
 
 # Ignorar configuración de Eclipse
 .metadata/
