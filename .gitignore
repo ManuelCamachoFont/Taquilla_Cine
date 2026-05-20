@@ -1,15 +1,30 @@
-
-
-# Ignorar configuración de IntelliJ
+# ─── IntelliJ IDEA ───────────────────────────────────────────
 .idea/
-.iml
+*.iml
+*.iws
+*.ipr
+out/
 
-# Ignorar configuración de Eclipse
-.metadata/
+# ─── Eclipse ─────────────────────────────────────────────────
 .classpath
 .project
 .settings/
 bin/
 
-# Ignorar config SO
+# ─── Maven ───────────────────────────────────────────────────
+target/
+*.class
+
+# ─── Gradle (por si acaso) ───────────────────────────────────
+.gradle/
+build/
+
+# ─── Sistema operativo ───────────────────────────────────────
+.DS_Store
 Thumbs.db
+desktop.ini
+
+# ─── Logs y temporales ───────────────────────────────────────
+*.log
+*.tmp
+*.bak
