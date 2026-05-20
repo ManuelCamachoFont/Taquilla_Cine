@@ -1,7 +1,13 @@
-.settings/
-.classpath
-.project
 bin/
 
-.DS_Store
+# Ignorar configuración de IntelliJ
+.idea/
+*.iml
+
+# Ignorar configuración de Eclipse
+.metadata/
+.classpath
+.project
+.settings/
+
 Thumbs.db
