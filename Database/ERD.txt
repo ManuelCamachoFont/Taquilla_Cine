@@ -1,0 +1,5 @@
+BASE DE DATOS:
+
+- Peliculas (#idPelicula, tituloPelicula, duracionPelicula, sinopsisPelicula)
+- Tickets (#idTicket, tipoTicket, precioTicket, idPeliculaFK)
+- Ventas (#idVenta, fechaVenta, cantidadVenta, totalVenta, idTicketFK)
