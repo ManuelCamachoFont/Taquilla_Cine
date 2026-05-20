@@ -1,4 +1,4 @@
-bin/
+
 
 # Ignorar configuración de IntelliJ
 .idea/
@@ -9,5 +9,7 @@ bin/
 .classpath
 .project
 .settings/
+bin/
 
+# Ignorar config SO
 Thumbs.db
