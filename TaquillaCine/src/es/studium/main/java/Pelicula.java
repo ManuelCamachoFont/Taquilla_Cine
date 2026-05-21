@@ -7,13 +7,6 @@ public class Pelicula {
 	private int duracion;
 	private String sinopsis;
 	
-	public Pelicula() {
-		this.id = 0;
-		this.titulo = "";
-		this.duracion = 0;
-		this.sinopsis = "";
-	}
-	
 	public Pelicula(int id, String titulo, int duracion, String sinopsis) {
 		this.id = id;
 		this.titulo = titulo;
