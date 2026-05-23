@@ -45,4 +45,9 @@ public class Pelicula {
 	public void setSinopsis(String sinopsis) {
 		this.sinopsis = sinopsis;
 	}
+	
+	@Override
+	public String toString() {
+	    return this.titulo;
+	}
 }

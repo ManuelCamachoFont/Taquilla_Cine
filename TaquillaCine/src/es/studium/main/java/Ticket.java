@@ -41,4 +41,9 @@ public class Ticket {
 	public void setPelicula(Pelicula pelicula) {
 		this.pelicula = pelicula;
 	}
+	
+	@Override
+    public String toString() {
+        return this.tipo + " (" + this.precio + "€)";
+    }
 }

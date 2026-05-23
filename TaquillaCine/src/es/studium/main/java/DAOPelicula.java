@@ -15,19 +15,6 @@ public class DAOPelicula {
 		this.connect = connect;
 	}
 	
-	public boolean insertarPelicula(Pelicula pelicula) {
-		String sqlUpdate = "INSERT INTO peliculas(tituloPelicula, duracion, sinopsis) VALUES = (?, ?, ?)";
-		try (PreparedStatement ps = connect.prepareStatement(sqlUpdate)){
-			ps.setString(1, pelicula.getTitulo());
-			ps.setInt(2, pelicula.getDuracion());
-			ps.setString(3, pelicula.getSinopsis());
-			ps.executeUpdate();
-			return true;
-		}
-		catch (SQLException sqle) {
-			return false;
-		}
-	}
 	
 	public List<Pelicula> obtenerPeliculas() {
         List<Pelicula> listaPeliculas = new ArrayList<>();
@@ -48,26 +35,5 @@ public class DAOPelicula {
         }
         return listaPeliculas;
     }
-	
-    public Pelicula obtenerPelicula(int idBusqueda) {
-        String sql = "SELECT * FROM peliculas WHERE id = ?";
-        try (PreparedStatement ps = connect.prepareStatement(sql)) {
-            ps.setInt(1, idBusqueda);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                	int id = (rs.getInt("idPelicula"));
-                    String titulo = (rs.getString("tituloPelicula"));
-                    int duracion = (rs.getInt("duracionPelicula"));
-                    String sinopsis = (rs.getString("sinopsisPelicula"));
-                    Pelicula p = new Pelicula(id, titulo, duracion, sinopsis);
-                    return p;
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al buscar por ID: " + e.getMessage());
-        }
-        return null;
-    }
-
     
 }
