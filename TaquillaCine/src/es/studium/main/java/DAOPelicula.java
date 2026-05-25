@@ -9,17 +9,18 @@ import java.util.List;
 
 public class DAOPelicula {
 
-	private Connection connect;
+	//private Connection connect;
 	
-	public DAOPelicula(Connection connect) {
-		this.connect = connect;
-	}
-	
+	//public DAOPelicula(Connection connect) {
+		//this.connect = connect;
+	//}
+
+	Connection conexion = DB.DBConnect();
 	
 	public List<Pelicula> obtenerPeliculas() {
         List<Pelicula> listaPeliculas = new ArrayList<>();
         String sqlQuery = "SELECT * FROM peliculas";
-        try (PreparedStatement ps = connect.prepareStatement(sqlQuery);
+        try (PreparedStatement ps = conexion.prepareStatement(sqlQuery);
              ResultSet rs = ps.executeQuery()) {
             
             while (rs.next()) {
