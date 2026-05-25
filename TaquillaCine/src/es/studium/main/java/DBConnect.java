@@ -15,18 +15,24 @@ public class DBConnect {
 
 	private Connection connect = null;
 
-	private DBConnect() throws ClassNotFoundException, SQLException {
-		Class.forName(DRIVER);
-		connect = DriverManager.getConnection(URL, USER, PWD);
-
+	private Connection DBConnect() {
+		try {
+			Class.forName(DRIVER);
+			connect = DriverManager.getConnection(URL, USER, PWD);
+			return connect;
+		} catch(SQLException | ClassNotFoundException e){
+			System.err.println("Error en la instancia: " + e.getMessage());
+			return null;
+		}
 	}
 
-	public static DBConnect getInstance() throws ClassNotFoundException, SQLException {
-		if (instance == null || instance.connect == null || instance.connect.isClosed()) {
+	public static DBConnect getInstance()
+	{
+		if (instance == null) {
 			instance = new DBConnect();
 		}
-
 		return instance;
+
 	}
 
 	public Connection getDBConnection(){

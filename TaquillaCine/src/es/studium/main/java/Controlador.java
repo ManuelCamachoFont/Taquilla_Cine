@@ -9,16 +9,10 @@ public class Controlador extends WindowAdapter implements ActionListener {
 
 	private Modelo m;
 	private Vista v;
-	private DAOPelicula daoP;
-	private DAOTicket daoT;
-	private DAOVenta daoV;
 	
-	public Controlador(Modelo modelo, Vista vista, DAOPelicula daoPelicula, DAOTicket daoTicket, DAOVenta daoVenta) {
+	public Controlador(Modelo modelo, Vista vista) {
 		this.m = modelo;
 		this.v = vista;
-		this.daoP = daoPelicula;
-		this.daoT = daoTicket;
-		this.daoV = daoVenta;
 	}
 
 	@Override
