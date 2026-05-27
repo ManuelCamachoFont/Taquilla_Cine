@@ -1,23 +1,36 @@
 package es.studium.main.java;
 
-public class Modelo {
+import java.sql.Connection;
 
-	DB conexion = new DB();
+public class Modelo
+{
+
+	private Connection conexion;
+
+	private DAOPelicula daoPelicula;
+	private DAOTicket daoTicket;
+	private DAOVenta daoVenta;
+
+	public Modelo()
+	{
+		this.conexion = DB.DBConnect();
+		if (this.conexion != null) {
+			this.daoPelicula = new DAOPelicula(this.conexion);
+			this.daoTicket = new DAOTicket(this.conexion);
+			this.daoVenta = new DAOVenta(this.conexion);
+			System.out.println("Conexiones a tablas establecidas");
+		} else {
+			System.err.println("Fallo de conexión");
+		}
+	}
 	
-	private DAOPelicula daoP;
-	private DAOTicket daoT;
-	private DAOVenta daoV;
-
-
-	DAOPelicula daoPelicula = new DAOPelicula();
-	//DAOTicket daoTicket = new DAOTicket();
-	//DAOVenta daoVenta = new DAOVenta();
-
-	public Modelo() {
-		this.daoP = daoPelicula;
-		//this.daoT = daoTicket;
-		//this.daoV = daoVenta;
-		System.out.println(conexion);
-		System.out.println(daoPelicula.obtenerPeliculas());
+	public DAOPelicula getDaoPelicula() {
+		return daoPelicula;
+	}
+	public DAOTicket getDaoTicket() {
+		return daoTicket;
+	}
+	public DAOVenta getDaoVenta() {
+		return daoVenta;
 	}
 }

@@ -6,19 +6,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DAOVenta {
+public class DAOVenta
+{
 
-	private Connection connect;
+	private Connection conexion;
 
-	public DAOVenta(Connection connect) {
-		this.connect = connect;
+	public DAOVenta(Connection connect)
+	{
+		this.conexion = connect;
 	}
 
-
-	public int registrarVenta (Venta venta) {
-		String sqlUpdate= "INSERT INTO ventas (fechaVenta, cantidadVenta, totalVenta, idTicketFK) VALUES (?, ?, ?, ?)";
+	public int registrarVenta(Venta venta)
+	{
+		String sqlUpdate = "INSERT INTO ventas (fechaVenta, cantidadVenta, totalVenta, idTicketFK) VALUES (?, ?, ?, ?)";
 		int id = -1;
-		try (PreparedStatement ps = connect.prepareStatement(sqlUpdate, Statement.RETURN_GENERATED_KEYS)) {
+		try (PreparedStatement ps = conexion.prepareStatement(sqlUpdate, Statement.RETURN_GENERATED_KEYS)) {
 
 			ps.setObject(1, venta.getFecha());
 			ps.setFloat(2, venta.getCantidad());
@@ -28,7 +30,7 @@ public class DAOVenta {
 			int insert = ps.executeUpdate();
 
 			if (insert > 0) {
-				try (ResultSet rsPK = ps.getGeneratedKeys()){
+				try (ResultSet rsPK = ps.getGeneratedKeys()) {
 					if (rsPK.next()) {
 						id = rsPK.getInt(1);
 					}

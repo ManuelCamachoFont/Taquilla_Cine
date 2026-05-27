@@ -4,51 +4,42 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DB {
-
-	private static final String URL = "jdbc:mysql://localhost:3306/taquilla_cine" ;
-	private static final String USER = "clienteCine" ;
+public class DB
+{
+	private static final String URL = "jdbc:mysql://localhost:3306/taquilla_cine";
+	private static final String USER = "clienteCine";
 	private static final String PWD = "studium";
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 
-	//private static DBConnect instance = null;
-
 	private static Connection connect = null;
 
-	public static Connection DBConnect() {
+	public static Connection DBConnect()
+	{
 		try {
+			if (connect != null && !connect.isClosed()) {
+				return connect;
+			}
 			Class.forName(DRIVER);
 			connect = DriverManager.getConnection(URL, USER, PWD);
-			System.out.println("Driver: " + DRIVER);
-			System.out.println("Connect: " + connect);
-			return connect;
-		} catch(SQLException | ClassNotFoundException e){
+			System.out.println("Driver cargado: " + DRIVER);
+			System.out.println("Conexión establecida: " + connect);
+		} catch (SQLException | ClassNotFoundException e) {
 			System.err.println("Error de driver: " + e.getMessage());
-			return null;
+			connect = null;
 		}
+
+		return connect;
 	}
 
-	/*public static DBConnect getInstance()
+	public void closeConnection()
 	{
-		if (instance == null) {
-			instance = new DBConnect();
-		}
-		return instance;
-
-	}*/
-
-	//public Connection getDBConnection(){
-		//return this.connect;
-	//}
-
-	public void closeConnection() {
 		try {
-			if (connect!=null && !connect.isClosed()) {
+			if (connect != null && !connect.isClosed()) {
 				connect.close();
+				System.out.println("Conexión cerrada correctamente.");
 			}
-		}
-		catch (SQLException sqle) {
-			sqle.printStackTrace();
+		} catch (SQLException sqle) {
+			System.err.println("Error al cerrar la base de datos: " + sqle.getMessage());
 		}
 	}
 }

@@ -21,7 +21,6 @@ public class PanelCompra extends JPanel
 	private JLabel lblTitulo = new JLabel("Selección de entradas", JLabel.CENTER);
 	private JComboBox<String> choEventos = new JComboBox<>(opcionesDePrueba);
 	private JTextField txtNombre = new JTextField(30);
-	//TextPrompt placeholderNombre = new TextPrompt("Nombre");
 	private JTextField txtApellido = new JTextField(30);
 	private JTextField txtEmail = new JTextField(30);
 	private JTextField txtAsientos = new JTextField(15);

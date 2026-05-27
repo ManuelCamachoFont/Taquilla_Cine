@@ -44,10 +44,7 @@ public class Controlador implements ActionListener {
 		} else if (e.getSource() == v.getPanelCompra().getBtnAtras()) {
 			v.panelAnterior();
 		} else if (e.getSource() == v.getPanelCompra().getBtnLimpiar()) {
-			v.getPanelCompra().getTxtNombre().setText(" ");
-			v.getPanelCompra().getTxtApellido().setText(" ");
-			v.getPanelCompra().getTxtEmail().setText(" ");
-			v.getPanelCompra().getTxtAsiento().setText(" ");
+			limpiarCampos();
 		} else if (e.getSource() == v.getPanelConfirm().getBtnAtras()) {
 			v.panelAnterior();
 		} else if (e.getSource() == v.getPanelConfirm().getBtnAceptar()) {
@@ -60,6 +57,13 @@ public class Controlador implements ActionListener {
 			System.out.println("IMPRIMIR ENTRADA");
 		}
 		
+	}
+	
+	public void limpiarCampos() {
+		v.getPanelCompra().getTxtNombre().setText(" ");
+		v.getPanelCompra().getTxtApellido().setText(" ");
+		v.getPanelCompra().getTxtEmail().setText(" ");
+		v.getPanelCompra().getTxtAsiento().setText(" ");
 	}
 	
 	

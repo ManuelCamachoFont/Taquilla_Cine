@@ -7,23 +7,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOTicket {
+public class DAOTicket
+{
 
-	private Connection connect;
+	private Connection conexion;
 
-	public DAOTicket(Connection connect) {
-		this.connect = connect;
+	public DAOTicket(Connection connect)
+	{
+		this.conexion = connect;
 	}
 
-
-	public List<Ticket> obtenerTicketPelicula(Pelicula pelicula) {
+	public List<Ticket> obtenerTicketPelicula(Pelicula pelicula)
+	{
 		List<Ticket> listaTickets = new ArrayList<>();
 		String sqlQuery = "SELECT idTicket, tipoTicket, precioTicket FROM tickets WHERE idPeliculaFK = ?";
-		try (PreparedStatement ps = connect.prepareStatement(sqlQuery)) {
+		try (PreparedStatement ps = conexion.prepareStatement(sqlQuery)) {
 
 			ps.setInt(1, pelicula.getId());
 
-			try (ResultSet rs = ps.executeQuery()){
+			try (ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
 					int id = (rs.getInt("idticket"));
 					String tipo = (rs.getString("tipoTicket"));
