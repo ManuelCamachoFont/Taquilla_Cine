@@ -30,7 +30,7 @@ public class DAOTicket
 					int id = (rs.getInt("idticket"));
 					String tipo = (rs.getString("tipoTicket"));
 					float precio = (rs.getFloat("precioTicket"));
-					Ticket t = new Ticket(id, tipo, precio, pelicula);
+					Ticket t = new Ticket(id, tipo, precio);
 					listaTickets.add(t);
 				}
 			}

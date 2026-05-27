@@ -36,10 +36,10 @@ public class PanelConfirm extends JPanel
 		
 		/*SET TEXTS DE EJEMPLO*/
 		
-		lblInfoEvento.setText("Información completa del evento");
-		lblNombreCompleto.setText("Información completa del comprador");
-		lblInfoAsiento.setText("Información completa del asiento");
-		lblPrecioTotal.setText("Información de todo el precio... caro, es muy caro");
+		//lblInfoEvento.setText("Información completa del evento");
+		//lblNombreCompleto.setText("Información completa del comprador");
+		//lblInfoAsiento.setText("Información completa del asiento");
+		//lblPrecioTotal.setText("Información de todo el precio... caro, es muy caro");
 		
 		panelInfo.add(lblInfoEvento);
 		panelInfo.add(lblNombreCompleto);

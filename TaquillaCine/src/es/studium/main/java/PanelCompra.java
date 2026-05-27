@@ -17,7 +17,7 @@ public class PanelCompra extends JPanel
 	 */
 	private static final long serialVersionUID = 1L;
 	String[] opcionesDePrueba = {"Selecciona una opción...", "Opción 1", "Opción 2", "Opción 3", "Opción 4", "Opción 5", };
-	String[] TestingTipoAsiento = {"1", "2", "3", "4" , "5"};
+	String[] TestingTipoAsiento = {"Selecciona el tipo de asiento...","Butaca - 7,50€", "Butaca Premium - 10,50€", "Palco - 15,50€"};
 	private JLabel lblTitulo = new JLabel("Selección de entradas", JLabel.CENTER);
 	private JComboBox<String> choEventos = new JComboBox<>(opcionesDePrueba);
 	private JTextField txtNombre = new JTextField(30);

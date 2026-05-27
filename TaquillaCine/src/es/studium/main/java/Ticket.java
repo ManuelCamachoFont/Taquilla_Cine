@@ -5,13 +5,11 @@ public class Ticket {
 	private int id;
 	private String tipo;
 	private float precio;
-	private Pelicula pelicula;
 	
-	public Ticket(int id, String tipo, float precio, Pelicula pelicula) {
+	public Ticket(int id, String tipo, float precio) {
 		this.id = id;
 		this.tipo = tipo;
 		this.precio= precio;
-		this.pelicula = pelicula;
 	}
 
 	public int getId() {
@@ -32,14 +30,6 @@ public class Ticket {
 
 	public void setPrecio(float precio) {
 		this.precio = precio;
-	}
-
-	public Pelicula getPelicula() {
-		return pelicula;
-	}
-
-	public void setPelicula(Pelicula pelicula) {
-		this.pelicula = pelicula;
 	}
 	
 	@Override

@@ -9,13 +9,15 @@ public class Venta {
 	private int cantidad;
 	private float total;
 	private Ticket ticket;
+	private Pelicula pelicula;
 	
-	public Venta(int id, LocalDate fecha, int cantidad, float total, Ticket ticket) {
+	public Venta(int id, LocalDate fecha, int cantidad, float total, Ticket ticket, Pelicula pelicula) {
 		this.id = id;
 		this.fecha = fecha;
 		this.cantidad = cantidad;
 		this.total = total;
 		this.ticket = ticket;
+		this.pelicula = pelicula;
 	}
 
 	public int getId() {
@@ -52,6 +54,14 @@ public class Venta {
 
 	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
+	}
+
+	public Pelicula getPelicula() {
+		return pelicula;
+	}
+
+	public void setPelicula(Pelicula pelicula) {
+		this.pelicula = pelicula;
 	}
 	
 }
