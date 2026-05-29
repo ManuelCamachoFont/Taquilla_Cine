@@ -24,8 +24,7 @@ public class Vista {
         //Fuck AWT... con esto se cierra la ventana... WHAT!
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        //ventana.setResizable(false);
-        //me cago en la leche, hay que tener mil ojos con el add <-- está pasando por parámetro el nombre del panel. 
+        ventana.setResizable(false);
         panelPrincipal.add(panelHome,"HOME");
         panelPrincipal.add(panelCompra,"COMPRA");
         panelPrincipal.add(panelConfirm, "RESUMEN");

@@ -7,15 +7,17 @@ public class Venta {
 	private int id;
 	private LocalDate fecha;
 	private int cantidad;
-	private float total;
+	private double total;
 	private Ticket ticket;
+	private Pelicula pelicula;
 	
-	public Venta(int id, LocalDate fecha, int cantidad, float total, Ticket ticket) {
+	public Venta(int id, LocalDate fecha, int cantidad, double total, Ticket ticket, Pelicula pelicula) {
 		this.id = id;
 		this.fecha = fecha;
 		this.cantidad = cantidad;
 		this.total = total;
 		this.ticket = ticket;
+		this.pelicula = pelicula;
 	}
 
 	public int getId() {
@@ -38,7 +40,7 @@ public class Venta {
 		this.cantidad = cantidad;
 	}
 
-	public float getTotal() {
+	public double getTotal() {
 		return total;
 	}
 
@@ -52,6 +54,14 @@ public class Venta {
 
 	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
+	}
+
+	public Pelicula getPelicula() {
+		return pelicula;
+	}
+
+	public void setPelicula(Pelicula pelicula) {
+		this.pelicula = pelicula;
 	}
 	
 }

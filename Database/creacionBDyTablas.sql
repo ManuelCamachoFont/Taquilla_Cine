@@ -31,7 +31,19 @@ CREATE TABLE ventas (
     FOREIGN KEY (idTicketFK)
         REFERENCES tickets (idTicket)
 );
-
 ALTER TABLE peliculas
 	CHANGE fechaEstrenoPelicula 
 		sinopsisPelicula VARCHAR(300) NOT NULL;
+        
+ALTER TABLE tickets 
+DROP FOREIGN KEY tickets_ibfk_1;
+
+ALTER TABLE ventas 
+ADD COLUMN idPeliculaFK INT NOT NULL,
+ADD CONSTRAINT fk_ventas_peliculas
+FOREIGN KEY (idPeliculaFK) REFERENCES peliculas (idPelicula);
+
+ALTER TABLE tickets 
+DROP COLUMN idPeliculaFK;
+select * from tickets;
+SELECT * FROM ventas

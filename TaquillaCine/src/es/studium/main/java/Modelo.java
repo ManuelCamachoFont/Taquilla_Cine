@@ -1,6 +1,7 @@
 package es.studium.main.java;
 
 import java.sql.Connection;
+import java.util.List;
 
 public class Modelo
 {
@@ -23,14 +24,19 @@ public class Modelo
 			System.err.println("Fallo de conexión");
 		}
 	}
-	
-	public DAOPelicula getDaoPelicula() {
-		return daoPelicula;
+
+	public List<Pelicula> consultarCartelera()
+	{
+		return this.daoPelicula.obtenerPeliculas();
 	}
-	public DAOTicket getDaoTicket() {
-		return daoTicket;
+
+	public List<Ticket> consultarTickets()
+	{
+		return this.daoTicket.obtenerTicket();
 	}
-	public DAOVenta getDaoVenta() {
-		return daoVenta;
+
+	public int procesarVenta(Venta venta)
+	{
+		return this.daoVenta.registrarVenta(venta);
 	}
 }

@@ -45,4 +45,7 @@ public class PanelEventos extends JPanel
 	public JButton getBtnAtras() {
 		return this.btnAtras;
 	}
+	public JTextArea getInfoEventos() {
+		return this.txaInfoEventos;
+	}
 }
