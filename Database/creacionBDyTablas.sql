@@ -46,4 +46,3 @@ FOREIGN KEY (idPeliculaFK) REFERENCES peliculas (idPelicula);
 ALTER TABLE tickets 
 DROP COLUMN idPeliculaFK;
 select * from tickets;
-SELECT * FROM ventas
