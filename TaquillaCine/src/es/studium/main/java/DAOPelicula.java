@@ -22,7 +22,6 @@ public class DAOPelicula
 		List<Pelicula> listaPeliculas = new ArrayList<>();
 		String sqlQuery = "SELECT * FROM peliculas";
 		try (PreparedStatement ps = conexion.prepareStatement(sqlQuery); ResultSet rs = ps.executeQuery()) {
-
 			while (rs.next()) {
 				int id = (rs.getInt("idPelicula"));
 				String titulo = (rs.getString("tituloPelicula"));

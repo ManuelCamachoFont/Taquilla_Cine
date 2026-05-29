@@ -17,22 +17,17 @@ public class DAOTicket
 		this.conexion = connect;
 	}
 
-	public List<Ticket> obtenerTicketPelicula(Pelicula pelicula)
+	public List<Ticket> obtenerTicket()
 	{
 		List<Ticket> listaTickets = new ArrayList<>();
-		String sqlQuery = "SELECT idTicket, tipoTicket, precioTicket FROM tickets WHERE idPeliculaFK = ?";
-		try (PreparedStatement ps = conexion.prepareStatement(sqlQuery)) {
-
-			ps.setInt(1, pelicula.getId());
-
-			try (ResultSet rs = ps.executeQuery()) {
-				while (rs.next()) {
-					int id = (rs.getInt("idticket"));
-					String tipo = (rs.getString("tipoTicket"));
-					float precio = (rs.getFloat("precioTicket"));
-					Ticket t = new Ticket(id, tipo, precio);
-					listaTickets.add(t);
-				}
+		String sqlQuery = "SELECT * FROM tickets;";
+		try (PreparedStatement ps = conexion.prepareStatement(sqlQuery); ResultSet rs = ps.executeQuery()) {
+			while (rs.next()) {
+				int id = (rs.getInt("idticket"));
+				String tipo = (rs.getString("tipoTicket"));
+				float precio = (rs.getFloat("precioTicket"));
+				Ticket t = new Ticket(id, tipo, precio);
+				listaTickets.add(t);
 			}
 		} catch (SQLException sqle) {
 			System.out.println("Error al leer: " + sqle.getMessage());

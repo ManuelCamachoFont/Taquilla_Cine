@@ -3,6 +3,7 @@ package es.studium.main.java;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -12,8 +13,21 @@ public class Controlador implements ActionListener
 
 	private Modelo m;
 	private Vista v;
+	private List<Pelicula> cartelera;
+	private List<Ticket> asientos;
 
+	private Venta ventaPreparada;
 	// Object boton1 = v.getPanelHome().getBtnInfoEventos();
+
+	public void cargarPeliculas()
+	{
+		cartelera = m.consultarCartelera();
+	}
+
+	public void cargarTickets()
+	{
+		asientos = m.consultarTickets();
+	}
 
 	public Controlador(Modelo modelo, Vista vista)
 	{
@@ -41,10 +55,15 @@ public class Controlador implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		if (e.getSource() == v.getPanelHome().getBtnInfoEventos()) {
+			v.getPanelEventos().getInfoEventos().setText("");
+			listarPeliculas();
 			v.mostrarPanel("INFO");
 		} else if (e.getSource() == v.getPanelEventos().getBtnAtras()) {
 			v.mostrarPanel("HOME");
 		} else if (e.getSource() == v.getPanelHome().getBtnSacarEntrada()) {
+			reiniciarColorCampos();
+			poblarComboCompraPeliculas();
+			poblarComboSeleccionAsiento();
 			v.mostrarPanel("COMPRA");
 		} else if (e.getSource() == v.getPanelCompra().getBtnAceptar()) {
 			verificarCampos();
@@ -56,24 +75,38 @@ public class Controlador implements ActionListener
 		} else if (e.getSource() == v.getPanelConfirm().getBtnAtras()) {
 			v.panelAnterior();
 		} else if (e.getSource() == v.getPanelConfirm().getBtnAceptar()) {
-			v.mostrarPanel("FIN");
+			guardarVenta();
 		} else if (e.getSource() == v.getPanelFin().getBtnVolverMenu()) {
+			limpiarCampos();
 			v.mostrarPanel("HOME");
 		} else if (e.getSource() == v.getPanelFin().getBtnSeguirComprando()) {
 			limpiarCampos();
 			v.mostrarPanel("COMPRA");
 		} else if (e.getSource() == v.getPanelFin().getBtnImprimirEntrada()) {
-			System.out.println("IMPRIMIR ENTRADA");
+			imprimirEntrada();
 		}
 
 	}
 
+	public void guardarVenta()
+	{
+		int idVentaGenerado = m.procesarVenta(this.ventaPreparada);
+
+		if (idVentaGenerado != -1) {
+			v.mostrarPanel("FIN");
+		} else {
+			System.err.println("Error en el registro de la venta");
+		}
+	}
+
 	public void limpiarCampos()
 	{
-		v.getPanelCompra().getTxtNombre().setText(" ");
-		v.getPanelCompra().getTxtApellido().setText(" ");
-		v.getPanelCompra().getTxtEmail().setText(" ");
-		v.getPanelCompra().getTxtAsiento().setText(" ");
+		v.getPanelCompra().getChoEventos().setSelectedIndex(0);
+		v.getPanelCompra().getTxtNombre().setText("");
+		v.getPanelCompra().getTxtApellido().setText("");
+		v.getPanelCompra().getTxtEmail().setText("");
+		v.getPanelCompra().getTxtAsiento().setText("");
+		v.getPanelCompra().getChoTipoAsiento().setSelectedIndex(0);
 	}
 
 	public void verificarCampos()
@@ -85,12 +118,7 @@ public class Controlador implements ActionListener
 		JTextField txtAsiento = v.getPanelCompra().getTxtAsiento();
 		JComboBox<String> choTipoAsiento = v.getPanelCompra().getChoTipoAsiento();
 
-		choEvento.setBackground(Color.WHITE);
-		txtNombre.setBackground(Color.WHITE);
-		txtApellido.setBackground(Color.WHITE);
-		txtEmail.setBackground(Color.WHITE);
-		txtAsiento.setBackground(Color.WHITE);
-		choTipoAsiento.setBackground(Color.WHITE);
+		reiniciarColorCampos();
 
 		if (choEvento.getSelectedIndex() == 0) {
 			choEvento.setBackground(new Color(255, 230, 230));
@@ -140,44 +168,142 @@ public class Controlador implements ActionListener
 		String nombre = pCompra.getTxtNombre().getText();
 		String apellido = pCompra.getTxtApellido().getText();
 		String email = pCompra.getTxtEmail().getText();
-		String asiento = pCompra.getTxtAsiento().getText();
+		int cantidad = Integer.parseInt(pCompra.getTxtAsiento().getText());
 		String tipoAsiento = (String) pCompra.getChoTipoAsiento().getSelectedItem();
+		double precioTotal = calcularPrecio();
 
-		// Hay que mirar cómo pasarlo a número si no lo devuelve ya. que el índice no
-		// venga como 0, poruqe peta todo
-		float precioTotal = Integer.parseInt(asiento) * calcularPrecio(pCompra.getChoTipoAsiento());
+		prepararVenta(evento, tipoAsiento, cantidad);
+		int duracion = this.ventaPreparada.getPelicula().getDuracion();
+		float precioUnitario = this.ventaPreparada.getTicket().getPrecio();
 
-		pConfirm.getInfoEvento().setText("Película seleccionada: " + evento);
-
+		pConfirm.getInfoEvento().setText("Película seleccionada: " + evento +" (Duración: "+ duracion+" minutos");
 		pConfirm.getNombreCompleto().setText(
-				"Datos del comprador:\n" + "Nombre completo: " + nombre + " " + apellido + "\n" + "Email: " + email);
-
-		pConfirm.getInfoAsiento().setText("Tipo de asiento: " + tipoAsiento);
-		pConfirm.getPrecioTotal().setText("Precio total: " + precioTotal + "€");
+				"Datos del comprador - Nombre completo: " + nombre + " " + apellido + "||" + "Email: " + email);
+		pConfirm.getInfoAsiento().setText("Tipo de asiento: " + tipoAsiento + "Cantidad: " + cantidad);
+		pConfirm.getPrecioTotal().setText("Precio por butaca: "+ precioUnitario + "€. Precio total: " + precioTotal + "€");
 
 		v.mostrarPanel("RESUMEN");
 	}
 
-	public float calcularPrecio(JComboBox<String> choEvento)
+	public void poblarComboCompraPeliculas()
 	{
-		// float precioTotal
-		String seleccion = choEvento.getSelectedItem().toString();
-		float precio = 0.0f;
-		switch (seleccion) {
-		case "Butaca - 7,50€":
-			precio = 7.5f;
-			break;
-		case "Butaca Premium - 10,50€":
-			precio = 10.50f;
-			break;
-		case "Palco - 15,50€":
-			precio = 15.50f;
-			break;
-		default:
+		if (cartelera == null) {
+			cargarPeliculas();
 		}
-		System.out.println(seleccion);
-		System.out.println(precio);
-		return precio;
+		JComboBox<String> combo = v.getPanelCompra().getChoEventos();
+		combo.removeAllItems();
+		combo.addItem("Seleciona una película...");
+		for (Pelicula p : cartelera) {
+			combo.addItem(p.getTitulo());
+		}
 	}
 
+	public void poblarComboSeleccionAsiento()
+	{
+		if (asientos == null) {
+			cargarTickets();
+		}
+		JComboBox<String> combo = v.getPanelCompra().getChoTipoAsiento();
+		combo.removeAllItems();
+		combo.addItem("Selecciona el tipo de butaca");
+		for (Ticket t : asientos) {
+			combo.addItem(t.getTipo());
+		}
+
+	}
+
+	public double calcularPrecio()
+	{
+		String tipoAsiento = (String) v.getPanelCompra().getChoTipoAsiento().getSelectedItem();
+		int cantidad = Integer.parseInt(v.getPanelCompra().getTxtAsiento().getText());
+		double precioAsiento = 0.0;
+		for (Ticket t : asientos) {
+			if (t.getTipo().equals(tipoAsiento)) {
+				precioAsiento = t.getPrecio();
+				break;
+			}
+		}
+
+		return cantidad * precioAsiento;
+	}
+
+	public void listarPeliculas()
+	{
+		if (cartelera == null) {
+			cargarPeliculas();
+		}
+		for (Pelicula p : cartelera) {
+			String titulo = p.getTitulo();
+			int duracion = p.getDuracion();
+			String sinopsis = p.getSinopsis();
+
+			String bloquePelicula = """
+					===============================
+					%s
+
+					Duración: %d minutos.
+					Sinopsis: %s
+
+
+					""".formatted(titulo, duracion, sinopsis);
+			v.getPanelEventos().getInfoEventos().append(bloquePelicula);
+		}
+	}
+
+	public void prepararVenta(String tituloPelicula, String tipoAsiento, int cantidad)
+	{
+		Pelicula peliculaSeleccionada = null;
+		for (Pelicula p : cartelera) {
+			if (p.getTitulo().equals(tituloPelicula)) {
+				peliculaSeleccionada = p;
+				break;
+			}
+		}
+
+		Ticket ticketSeleccionado = null;
+		for (Ticket t : asientos) {
+			if (t.getTipo().equals(tipoAsiento)) {
+				ticketSeleccionado = t;
+				break;
+			}
+		}
+		double precioTotal = calcularPrecio();
+
+		this.ventaPreparada = new Venta(0, java.time.LocalDate.now(), cantidad, precioTotal, ticketSeleccionado,
+				peliculaSeleccionada);
+	}
+	
+	public void imprimirEntrada() {
+		if (this.ventaPreparada != null) {
+	        
+	        String titulo = this.ventaPreparada.getPelicula().getTitulo();
+	        String nombreCompleto = v.getPanelCompra().getTxtNombre().getText() + " " + v.getPanelCompra().getTxtApellido().getText();
+	        String tipoAsiento = this.ventaPreparada.getTicket().getTipo();
+	        int cantidad = this.ventaPreparada.getCantidad();
+	        double total = this.ventaPreparada.getTotal();
+
+	        System.out.println("nombre: "+nombreCompleto);
+	        Impresora.imprimirEntrada(titulo, nombreCompleto, tipoAsiento, cantidad, total);
+	        
+	    } else {
+	    	System.err.println("Error en la impresión");
+	    }
+	}
+	
+	public void reiniciarColorCampos() {
+
+		JComboBox<String> choEvento = v.getPanelCompra().getChoEventos();
+		JTextField txtNombre = v.getPanelCompra().getTxtNombre();
+		JTextField txtApellido = v.getPanelCompra().getTxtApellido();
+		JTextField txtEmail = v.getPanelCompra().getTxtEmail();
+		JTextField txtAsiento = v.getPanelCompra().getTxtAsiento();
+		JComboBox<String> choTipoAsiento = v.getPanelCompra().getChoTipoAsiento();
+
+		choEvento.setBackground(Color.WHITE);
+		txtNombre.setBackground(Color.WHITE);
+		txtApellido.setBackground(Color.WHITE);
+		txtEmail.setBackground(Color.WHITE);
+		txtAsiento.setBackground(Color.WHITE);
+		choTipoAsiento.setBackground(Color.WHITE);
+	}
 }

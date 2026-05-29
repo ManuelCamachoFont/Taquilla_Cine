@@ -18,14 +18,15 @@ public class DAOVenta
 
 	public int registrarVenta(Venta venta)
 	{
-		String sqlUpdate = "INSERT INTO ventas (fechaVenta, cantidadVenta, totalVenta, idTicketFK) VALUES (?, ?, ?, ?)";
+		String sqlUpdate = "INSERT INTO ventas (fechaVenta, cantidadVenta, totalVenta, idTicketFK, idPeliculaFK) VALUES (?, ?, ?, ?, ?)";
 		int id = -1;
 		try (PreparedStatement ps = conexion.prepareStatement(sqlUpdate, Statement.RETURN_GENERATED_KEYS)) {
 
 			ps.setObject(1, venta.getFecha());
 			ps.setFloat(2, venta.getCantidad());
-			ps.setFloat(3, venta.getTotal());
+			ps.setDouble(3, venta.getTotal());
 			ps.setInt(4, venta.getTicket().getId());
+			ps.setInt(5, venta.getPelicula().getId());
 
 			int insert = ps.executeUpdate();
 

@@ -7,11 +7,11 @@ public class Venta {
 	private int id;
 	private LocalDate fecha;
 	private int cantidad;
-	private float total;
+	private double total;
 	private Ticket ticket;
 	private Pelicula pelicula;
 	
-	public Venta(int id, LocalDate fecha, int cantidad, float total, Ticket ticket, Pelicula pelicula) {
+	public Venta(int id, LocalDate fecha, int cantidad, double total, Ticket ticket, Pelicula pelicula) {
 		this.id = id;
 		this.fecha = fecha;
 		this.cantidad = cantidad;
@@ -40,7 +40,7 @@ public class Venta {
 		this.cantidad = cantidad;
 	}
 
-	public float getTotal() {
+	public double getTotal() {
 		return total;
 	}
 
