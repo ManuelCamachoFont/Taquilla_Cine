@@ -227,8 +227,30 @@ public class Controlador implements ActionListener
 		return cantidad * precioAsiento;
 	}
 
-	public void listarPeliculas()
-	{
+//	public void listarPeliculas()
+//	{
+//		if (cartelera == null) {
+//			cargarPeliculas();
+//		}
+//		for (Pelicula p : cartelera) {
+//			String titulo = p.getTitulo();
+//			int duracion = p.getDuracion();
+//			String sinopsis = p.getSinopsis();
+//
+//			String bloquePelicula = """
+//					===============================
+//					%s
+//
+//					Duración: %d minutos.
+//					Sinopsis: %s
+//
+//
+//					""".formatted(titulo, duracion, sinopsis);
+//			v.getPanelEventos().getInfoEventos().append(bloquePelicula);
+//		}
+//	}
+
+	public void listarPeliculas() {
 		if (cartelera == null) {
 			cargarPeliculas();
 		}
@@ -236,20 +258,31 @@ public class Controlador implements ActionListener
 			String titulo = p.getTitulo();
 			int duracion = p.getDuracion();
 			String sinopsis = p.getSinopsis();
-
-			String bloquePelicula = """
-					===============================
-					%s
-
-					Duración: %d minutos.
-					Sinopsis: %s
-
-
-					""".formatted(titulo, duracion, sinopsis);
-			v.getPanelEventos().getInfoEventos().append(bloquePelicula);
+			
+			String html = "<html>" +
+	                "<body style='font-family: sans-serif; background-color: #f0f0f0; padding: 10px;'>" +
+	                "  <h1 style='color: #2c3e50;'>¡Hola desde HTML en Swing!</h1>" +
+	                "  <p>Este es un texto normal, pero aquí tengo una palabra en <b>negrita</b> y otra en <i>cursiva</i>.</p>" +
+	                "  <hr>" +
+	                "  <h3>Lista de elementos:</h3>" +
+	                "  <ul>" +
+	                "    <li style='color: red;'>Primer elemento (Rojo)</li>" +
+	                "    <li style='color: blue;'>Segundo elemento (Azul)</li>" +
+	                "  </ul>" +
+	                "  <p>Incluso puedes añadir tablas básicas:</p>" +
+	                "  <table border='1' cellpadding='5'>" +
+	                "    <tr><th>Jugador</th><th>Puntos</th></tr>" +
+	                "    <tr><td>Alberto</td><td>1500</td></tr>" +
+	                "    <tr><td>Marta</td><td>2200</td></tr>" +
+	                "  </table>" +
+	                "</body>" +
+	                "</html>";
+			v.getPanelEventos().getInfoEventos().setText(html);
 		}
+		
 	}
-
+	
+	
 	public void prepararVenta(String tituloPelicula, String tipoAsiento, int cantidad)
 	{
 		Pelicula peliculaSeleccionada = null;

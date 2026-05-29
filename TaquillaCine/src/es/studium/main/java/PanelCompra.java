@@ -3,7 +3,11 @@ package es.studium.main.java;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -12,19 +16,22 @@ import javax.swing.JTextField;
 
 public class PanelCompra extends JPanel
 {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
-	//String[] opcionesDePrueba = {"Selecciona una opción...", "Opción 1", "Opción 2", "Opción 3", "Opción 4", "Opción 5", };
-	//String[] TestingTipoAsiento = {"Selecciona el tipo de asiento...","Butaca - 7,50€", "Butaca Premium - 10,50€", "Palco - 15,50€"};
+	String[] eventos = {"Selecciona una opción..."};
+	String[] tipoAsiento = {"Tipo de asiento..."};
 	private JLabel lblTitulo = new JLabel("Selección de entradas", JLabel.CENTER);
-	private JComboBox<String> choEventos = new JComboBox<>();
-	private JTextField txtNombre = new JTextField(30);
-	private JTextField txtApellido = new JTextField(30);
-	private JTextField txtEmail = new JTextField(30);
-	private JTextField txtAsientos = new JTextField(15);
-	private JComboBox<String>choTipoAsiento = new JComboBox<String>();
+	private JLabel lblEvento = new JLabel("Eventos");
+	private JComboBox<String> choEventos = new JComboBox<>(eventos);
+	private JLabel lblNombre = new JLabel("Nombre");
+	private JTextField txtNombre = new JTextField(20);
+	private JLabel lblApellido = new JLabel("Apellido");
+	private JTextField txtApellido = new JTextField(20);
+	private JLabel lblEmail = new JLabel ("Email");
+	private JTextField txtEmail = new JTextField(20);
+	private JComboBox<String>choTipoAsiento = new JComboBox<String>(tipoAsiento);
+	private JLabel lblAsientos = new JLabel ("Cantidad");
+	private JTextField txtAsientos = new JTextField(4);
 	private JButton btnAceptar = new JButton("Comprar");
 	private JButton btnAtras = new JButton("Atrás");
 	private JButton btnLimpiar = new JButton("Limpiar");
@@ -32,21 +39,56 @@ public class PanelCompra extends JPanel
 	private JPanel panelTxtFields = new JPanel();
 	private JPanel panelBtns = new JPanel();
 	
+	GridBagLayout gridbag = new GridBagLayout();
+	GridBagConstraints gbc = new GridBagConstraints();
 	
 	
 	public PanelCompra() {
 		setLayout(new BorderLayout(10, 10));
 		
 		lblTitulo.setFont(new Font("Arial", Font.BOLD, 20));
+		lblTitulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 		add(lblTitulo, BorderLayout.NORTH);
 		
-		panelTxtFields.setLayout(new FlowLayout(FlowLayout.CENTER, 20,5));
-		panelTxtFields.add(choEventos);
-		panelTxtFields.add(txtNombre);
-		panelTxtFields.add(txtApellido);
-		panelTxtFields.add(txtEmail);
-		panelTxtFields.add(txtAsientos);
-		panelTxtFields.add(choTipoAsiento);
+		panelTxtFields.setLayout(gridbag);
+		gbc.insets = new Insets (5, 5, 5,5);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		panelTxtFields.add(lblEvento, gbc);
+		
+		gbc.gridx = 1;
+		panelTxtFields.add(choEventos, gbc);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		panelTxtFields.add(lblNombre, gbc);
+		gbc.gridx = 1;
+		panelTxtFields.add(txtNombre, gbc);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		panelTxtFields.add(lblApellido, gbc);
+		gbc.gridx = 1;
+		panelTxtFields.add(txtApellido, gbc);
+	
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		panelTxtFields.add(lblEmail, gbc);
+		gbc.gridx = 1;
+		panelTxtFields.add(txtEmail, gbc);
+		
+		
+		gbc.gridx = 0;
+		gbc.gridy = 4;
+		gbc.insets.set(10, 30, 10, 10);;
+		panelTxtFields.add(choTipoAsiento, gbc);
+		
+		gbc.gridx = 1;
+		gbc.insets.set(10, 0, 10, 100);
+		panelTxtFields.add(lblAsientos, gbc);
+		gbc.insets.set(10, 20, 10, 10);
+		panelTxtFields.add(txtAsientos, gbc);
 		
 		panelBtns.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 5));
 	    panelBtns.add(btnAtras);
