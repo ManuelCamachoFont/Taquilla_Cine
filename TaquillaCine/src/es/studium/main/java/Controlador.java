@@ -19,12 +19,12 @@ public class Controlador implements ActionListener
 	private Venta ventaPreparada;
 	// Object boton1 = v.getPanelHome().getBtnInfoEventos();
 
-	public void cargarPeliculas()
+	private void cargarPeliculas()
 	{
 		cartelera = m.consultarCartelera();
 	}
 
-	public void cargarTickets()
+	private void cargarTickets()
 	{
 		asientos = m.consultarTickets();
 	}
@@ -88,7 +88,7 @@ public class Controlador implements ActionListener
 
 	}
 
-	public void guardarVenta()
+	private void guardarVenta()
 	{
 		int idVentaGenerado = m.procesarVenta(this.ventaPreparada);
 
@@ -99,7 +99,7 @@ public class Controlador implements ActionListener
 		}
 	}
 
-	public void limpiarCampos()
+	private void limpiarCampos()
 	{
 		v.getPanelCompra().getChoEventos().setSelectedIndex(0);
 		v.getPanelCompra().getTxtNombre().setText("");
@@ -109,7 +109,7 @@ public class Controlador implements ActionListener
 		v.getPanelCompra().getChoTipoAsiento().setSelectedIndex(0);
 	}
 
-	public void verificarCampos()
+	private void verificarCampos()
 	{
 		JComboBox<String> choEvento = v.getPanelCompra().getChoEventos();
 		JTextField txtNombre = v.getPanelCompra().getTxtNombre();
@@ -159,7 +159,7 @@ public class Controlador implements ActionListener
 
 	}
 
-	public void mostrarResumen()
+	private void mostrarResumen()
 	{
 		PanelCompra pCompra = v.getPanelCompra();
 		PanelConfirm pConfirm = v.getPanelConfirm();
@@ -185,7 +185,7 @@ public class Controlador implements ActionListener
 		v.mostrarPanel("RESUMEN");
 	}
 
-	public void poblarComboCompraPeliculas()
+	private void poblarComboCompraPeliculas()
 	{
 		if (cartelera == null) {
 			cargarPeliculas();
@@ -198,7 +198,7 @@ public class Controlador implements ActionListener
 		}
 	}
 
-	public void poblarComboSeleccionAsiento()
+	private void poblarComboSeleccionAsiento()
 	{
 		if (asientos == null) {
 			cargarTickets();
@@ -212,7 +212,7 @@ public class Controlador implements ActionListener
 
 	}
 
-	public double calcularPrecio()
+	private double calcularPrecio()
 	{
 		String tipoAsiento = (String) v.getPanelCompra().getChoTipoAsiento().getSelectedItem();
 		int cantidad = Integer.parseInt(v.getPanelCompra().getTxtAsiento().getText());
@@ -227,7 +227,7 @@ public class Controlador implements ActionListener
 		return cantidad * precioAsiento;
 	}
 
-	public void listarPeliculas()
+	private void listarPeliculas()
 	{
 		if (cartelera == null) {
 			cargarPeliculas();
