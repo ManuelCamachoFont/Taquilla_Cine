@@ -7,13 +7,15 @@ public class Pelicula
 	private String titulo;
 	private int duracion;
 	private String sinopsis;
+	private String imagen;
 
-	public Pelicula(int id, String titulo, int duracion, String sinopsis)
+	public Pelicula(int id, String titulo, int duracion, String sinopsis, String imagen)
 	{
 		this.id = id;
 		this.titulo = titulo;
 		this.duracion = duracion;
 		this.sinopsis = sinopsis;
+		this.imagen = imagen;
 	}
 
 	public int getId()
@@ -49,6 +51,14 @@ public class Pelicula
 	public String getSinopsis()
 	{
 		return sinopsis;
+	}
+	
+	public void setRutaImagen(String imagen) {
+		this.imagen = imagen;
+	}
+	
+	public String getRutaImagen() {
+		return imagen;
 	}
 
 	public void setSinopsis(String sinopsis)

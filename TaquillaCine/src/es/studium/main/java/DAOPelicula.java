@@ -27,7 +27,8 @@ public class DAOPelicula
 				String titulo = (rs.getString("tituloPelicula"));
 				int duracion = (rs.getInt("duracionPelicula"));
 				String sinopsis = (rs.getString("sinopsisPelicula"));
-				Pelicula p = new Pelicula(id, titulo, duracion, sinopsis);
+				String imagen = (rs.getString("imgPelicula"));
+				Pelicula p = new Pelicula(id, titulo, duracion, sinopsis, imagen);
 				listaPeliculas.add(p);
 			}
 		} catch (SQLException sqle) {
