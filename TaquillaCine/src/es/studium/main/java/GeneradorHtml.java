@@ -2,8 +2,21 @@ package es.studium.main.java;
 
 import java.util.List;
 
+/**
+ * Clase de utilidad creada para organizar la creación de los HTML que se muestran en un JEditorPane.
+ * 
+ * @author Manuel Camacho Font
+ * @author José Leopoldo Ruiz Moreno
+ * @version 1.0
+ */
 public class GeneradorHtml {
 
+	/**
+	 * Genera un documento HTML distribuido en un cuadro de dos elementos por fila en los que se muestra la información de cada película/evento.
+	 * 
+	 * @param cartelera Lista de películas obtenidas de la base de datos.
+	 * @return HTML generado para mostrar en el panel correspondiente (En este caso PanelEventos).
+	 */
 	public static String generarCartelera(List<Pelicula> cartelera) {
 		StringBuilder html = new StringBuilder("""
 				<html>
@@ -19,7 +32,7 @@ public class GeneradorHtml {
 				</head>
 				<body>
 				    <div style="width: 550px;">
-				        <table width="100%" cellspacing="10" cellpadding="0">
+				        <table width="100%%" cellspacing="10" cellpadding="0">
 				""");
 
 		int i = 0;
@@ -62,6 +75,14 @@ public class GeneradorHtml {
 		return html.toString();
 	}
 	
+	/**
+	 * Genera un HTML para mostrar en un panel de confirmación antes de efectuar la compra con toda la información del comprador, el evento, y el precio del ticket
+	 * 
+	 * @param venta Objeto Venta que se queda en memoria antes de efectuar su inserción
+	 * @param nombreCompleto Valor introducido en el PanelCompra por el usuario que indica su nombre completo
+	 * @param email Valor introducido en el PanelCompra por el usuario que indica su email
+	 * @return HTML generado para mostrar en el panel correspondiente (En este caso PanelConfirm)
+	 */
 	public static String generarResumenVenta(Venta venta, String nombreCompleto, String email) {
 		StringBuilder html = new StringBuilder("""
 				<html>

@@ -12,11 +12,16 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Panel principal de la interfaz gráfica que contiene una pantalla de bienvenida con dos botones, uno para consultar información y otro para la compra de entradas.
+ * 
+ * @author Manuel Camacho Font
+ * @author José Leopoldo Ruiz Moreno
+ * @version 1.0
+ */
 public class PanelHome extends JPanel
 {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JLabel lblTitulo = new JLabel("¡Bienvenido a CineLema!", JLabel.CENTER);
 	private JButton btnSacarEntrada = new JButton("Sacar entradas");
@@ -64,6 +69,9 @@ public class PanelHome extends JPanel
 		add(lblDerechos);
 	}
 	
+	/**
+	 * Método para establecer la imagen de fondo, y en caso de error cambiar el color de fondo a uno de la misma paleta utilizada en la aplicación.
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);

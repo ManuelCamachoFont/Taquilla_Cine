@@ -2,6 +2,13 @@ package es.studium.main.java;
 
 import java.time.LocalDate;
 
+/**
+ * Clase objeto Venta para gestionar las Ventas en la aplicación.
+ * 
+ * @author Manuel Camacho Font
+ * @author José Luis Ruiz Moreno
+ * @version 1.0
+ */
 public class Venta {
 
 	private int id;

@@ -7,6 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase Data Access Object para gestionar el objeto Ticket de la base de datos.
+ * 
+ * @author Manuel Camacho Font
+ * @author José Leopoldo Ruiz Moreno
+ * @version 1.0
+ */
 public class DAOTicket
 {
 
@@ -17,6 +24,11 @@ public class DAOTicket
 		this.conexion = connect;
 	}
 
+	/**
+	 * Función para obtener el listado de los tickets de la base de datos.
+	 * 
+	 * @return Devuelve un listado con todos los tickets disponibles y los guarda en un array con sus valores.
+	 */
 	public List<Ticket> obtenerTicket()
 	{
 		List<Ticket> listaTickets = new ArrayList<>();

@@ -6,6 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Clase Data Access Object para gestionar el objeto Venta de la base de datos.
+ * 
+ * @author Manuel Camacho Font
+ * @author José Leopoldo Ruiz Moreno
+ * @version 1.0
+ */
 public class DAOVenta
 {
 
@@ -16,6 +23,12 @@ public class DAOVenta
 		this.conexion = connect;
 	}
 
+	/**
+	 * Función para ejecutar una inserción en la base de datos guardando la información del ticket y el evento y que además devuelve el código de la venta.
+	 * 
+	 * @param venta Objeto Venta que obtenemos de la clase Venta.java
+	 * @return Devuelve el id de la venta, si devuelve -1 nos indica que ha surgido algún error, en caso contrario que nos devuelva otro número será el id de la venta generada.
+	 */
 	public int registrarVenta(Venta venta)
 	{
 		String sqlUpdate = "INSERT INTO ventas (fechaVenta, cantidadVenta, totalVenta, idTicketFK, idPeliculaFK) VALUES (?, ?, ?, ?, ?)";
