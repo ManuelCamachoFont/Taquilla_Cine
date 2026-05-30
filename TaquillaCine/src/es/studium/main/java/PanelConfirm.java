@@ -59,14 +59,13 @@ public class PanelConfirm extends JPanel
 		add(panelBtns, BorderLayout.SOUTH);
 	}
 	
-	public JEditorPane getResumen() {
-		return this.txaResumen;
-	}
+	public JEditorPane getResumen() { return this.txaResumen; }
 	
-	public JButton getBtnAtras() {
-		return this.btnAtras;
-	}
-	public JButton getBtnAceptar() {
-		return this.btnAceptar;
+	public JButton getBtnAtras() { return this.btnAtras; }
+	
+	public JButton getBtnAceptar() { return this.btnAceptar; }
+	
+	public void setResumen(String htmlResumen) {
+		this.txaResumen.setText(htmlResumen);
 	}
 }

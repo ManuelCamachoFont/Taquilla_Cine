@@ -57,10 +57,17 @@ public class PanelEventos extends JPanel
 		
 	}
 	
-	public JButton getBtnAtras() {
-		return this.btnAtras;
-	}
-	public JEditorPane getInfoEventos() {
-		return this.txaInfoEventos;
-	}
+	public JButton getBtnAtras() { return this.btnAtras; }
+	
+	public JEditorPane getInfoEventos() { return this.txaInfoEventos; }
+	
+	
+	public void limpiarInfo() {
+        txaInfoEventos.setText("");
+    }
+    public void cargarContenidoHtml(String htmlCompleto) {
+        txaInfoEventos.setText(htmlCompleto);
+        txaInfoEventos.setCaretPosition(0);
+    }
+	
 }

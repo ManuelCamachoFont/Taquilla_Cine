@@ -7,10 +7,12 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -19,18 +21,16 @@ public class PanelCompra extends JPanel
 {
 	
 	private static final long serialVersionUID = 1L;
-	String[] eventos = {"Selecciona una opción..."};
-	String[] tipoAsiento = {"Tipo de asiento..."};
 	private JLabel lblTitulo = new JLabel("Selección de entradas", JLabel.CENTER);
 	private JLabel lblEvento = new JLabel("Película");
-	private JComboBox<String> choEventos = new JComboBox<>(eventos);
+	private JComboBox<String> choEventos = new JComboBox<>();
 	private JLabel lblNombre = new JLabel("Nombre");
 	private JTextField txtNombre = new JTextField(20);
 	private JLabel lblApellido = new JLabel("Apellido");
 	private JTextField txtApellido = new JTextField(20);
 	private JLabel lblEmail = new JLabel ("Email");
 	private JTextField txtEmail = new JTextField(20);
-	private JComboBox<String>choTipoAsiento = new JComboBox<String>(tipoAsiento);
+	private JComboBox<String>choTipoAsiento = new JComboBox<String>();
 	private JLabel lblAsientos = new JLabel ("Cantidad");
 	private JTextField txtAsientos = new JTextField(4);
 	private JButton btnAceptar = new JButton("Comprar");
@@ -40,13 +40,15 @@ public class PanelCompra extends JPanel
 	private JPanel panelTxtFields = new JPanel();
 	private JPanel panelBtns = new JPanel();
 	
-	GridBagLayout gridbag = new GridBagLayout();
-	GridBagConstraints gbc = new GridBagConstraints();
+	private GridBagLayout gridbag = new GridBagLayout();
+	private GridBagConstraints gbc = new GridBagConstraints();
 	
 	private Color fondo = new Color(11,15, 25);
 	private Color colorBoton = new Color(22, 27, 38);
 	private Color colorTitulo = new Color(0, 229, 255);
 	private Color colorTxt = new Color (138, 153, 173);
+	private Color blanco = Color.WHITE;
+	private Color colorError = new Color(255, 230, 230);
 	
 	
 	public PanelCompra() {
@@ -121,32 +123,142 @@ public class PanelCompra extends JPanel
 	    
 	    
 	}
+	
+	// Poblar combos
+	
+	public void poblarPeliculas(List<Pelicula> cartelera) {
+	    choEventos.removeAllItems();
+	    choEventos.addItem("Selecciona una película...");
+	    for (Pelicula p : cartelera) {
+	        choEventos.addItem(p.getTitulo());
+	    }
+	}
+	
+	public void poblarAsientos(List<Ticket> asientos) {
+	    choTipoAsiento.removeAllItems();
+	    choTipoAsiento.addItem("Tipo de asiento..."); 
+	    for (Ticket t : asientos) {
+	        choTipoAsiento.addItem(t.getTipo());
+	    }
+	}
 
-	public JComboBox<String> getChoEventos() {
-		return this.choEventos;
+	// Getters Elementos
+	
+	public JComboBox<String> getChoEventos() { return this.choEventos; }
+	
+	public JComboBox<String> getChoTipoAsiento() { return this.choTipoAsiento; }
+	
+	public JTextField getTxtNombre() {	return this.txtNombre;}
+	
+	public JTextField getTxtApellido() {return this.txtApellido;}
+	
+	public JTextField getTxtEmail() {return this.txtEmail; }
+	
+	public JTextField getTxtAsiento() {	return this.txtAsientos; }	
+	
+	public JButton getBtnAceptar() { return this.btnAceptar; }
+	
+	public JButton getBtnAtras() {return this.btnAtras;	}
+	
+	public JButton getBtnLimpiar() {return this.btnLimpiar;	}
+	
+	
+	// Getters Valores
+	
+	public String getNombreCompleto() { return txtNombre.getText().trim() + " " + txtApellido.getText().trim(); }
+	
+	public String getEmail() { return txtEmail.getText().trim(); }
+	
+	public String getPelicula() { return (String) choEventos.getSelectedItem(); }
+	
+	public String getAsiento() { return (String) choTipoAsiento.getSelectedItem(); }
+	
+	public int getCantidad() { return Integer.parseInt(txtAsientos.getText().trim()); }
+	
+	
+	
+	public void limpiarCampos() {
+	    choEventos.setSelectedIndex(0);
+	    txtNombre.setText("");
+	    txtApellido.setText("");
+	    txtEmail.setText("");
+	    txtAsientos.setText("");
+	    choTipoAsiento.setSelectedIndex(0);
 	}
-	public JTextField getTxtNombre() {
-		return this.txtNombre;
+
+	public void reinicioVisualCampos() {
+	    choEventos.setBackground(blanco);
+	    txtNombre.setBackground(blanco);
+	    txtApellido.setBackground(blanco);
+	    txtEmail.setBackground(blanco);
+	    txtAsientos.setBackground(blanco);
+	    choTipoAsiento.setBackground(blanco);
 	}
-	public JTextField getTxtApellido() {
-		return this.txtApellido;
+
+	public boolean validarCampos() {
+	    reinicioVisualCampos();
+
+	    if (choEventos.getSelectedIndex() == 0) {
+	        marcarErrorCampo(choEventos, "Seleccione una película por favor", "Película - Inválido");
+	        return false;
+	    }
+	    if (txtNombre.getText().trim().isEmpty()) {
+	        marcarErrorCampo(txtNombre, "Rellene todos los campos por favor", "Nombre - Inválido");
+	        return false;
+	    }
+	    // Patron Regex para nombres
+	    if (!txtNombre.getText().matches("^[\\p{L} .'-]+$")) {
+	        marcarErrorCampo(txtNombre, "Introduzca caracteres válidos para el nombre", "Nombre - Inválido");
+	        return false;
+	    }
+	    if (txtApellido.getText().trim().isEmpty()) {
+	        marcarErrorCampo(txtApellido, "Rellene todos los campos por favor", "Apellido - Inválido");
+	        return false;
+	    }
+	    if (!txtApellido.getText().matches("^[\\p{L} .'-]+$")) {
+	        marcarErrorCampo(txtApellido, "Introduzca caracteres válidos para el apellido", "Apellido - Inválido");
+	        return false;
+	    }
+	    if (txtEmail.getText().trim().isEmpty()) {
+	        marcarErrorCampo(txtEmail, "Rellene todos los campos por favor", "Email - Inválido");
+	        return false;
+	    }
+	    // Patron Regex para email
+	    if (!txtEmail.getText().trim().matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+	        marcarErrorCampo(txtEmail, "El correo debe tener un formato válido, por ejemplo: usuario@dominio.com", "Email - Inválido");
+	        return false;
+	    }
+	    
+	    try {
+	        int cantidad = Integer.parseInt(txtAsientos.getText().trim());
+	        if (cantidad <= 0) {
+	        	marcarErrorCampo(txtAsientos, "Debe comprar al menos 1 entrada", "Cantidad - Inválido");
+		        return false;
+	        }
+	        if (cantidad > 10) {
+	        	marcarErrorCampo(txtAsientos, "No se permite adquirir más de 10 tickets por compra", "Cantidad - Inválido");
+		        return false;
+	        }
+	    } catch (NumberFormatException e) {
+	        marcarErrorCampo(txtAsientos, "Introduce un valor numérico, por ejemplo: 2", "Cantidad - Inválido");
+	        return false;
+	    }
+	   
+
+	    if (choTipoAsiento.getSelectedIndex() == 0) {
+	        marcarErrorCampo(choTipoAsiento, "Seleccione una butaca por favor", "Butaca - Inválido");
+	        return false;
+	    }
+
+	    return true;
 	}
-	public JTextField getTxtEmail() {
-		return this.txtEmail;
+
+	private void marcarErrorCampo(JComponent elemento, String mensajeError, String tituloDialogo) {
+	    elemento.setBackground(colorError);
+	    elemento.requestFocus();
+	    ControlErrores.mostrarError(this, mensajeError, tituloDialogo, 2);
 	}
-	public JTextField getTxtAsiento() {
-		return this.txtAsientos;
-	}
-	public JComboBox<String> getChoTipoAsiento() {
-		return this.choTipoAsiento;
-	}
-	public JButton getBtnAceptar() {
-		return this.btnAceptar;
-	}
-	public JButton getBtnAtras() {
-		return this.btnAtras;
-	}
-	public JButton getBtnLimpiar() {
-		return this.btnLimpiar;
-	}
+
+	
+	
 }
