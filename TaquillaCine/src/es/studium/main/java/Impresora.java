@@ -16,10 +16,26 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 
+/**
+ * Clase de utilidad creada para trabajar con la generación de archivos PDF usando la librería externa iText.
+ * 
+ * @author Manuel Camacho Font
+ * @author José Leopoldo Ruiz Moreno
+ * @version 1.0
+ */
 public class Impresora
 {
 	private static final String DEST = "entradas/entrada_"+System.currentTimeMillis()+".pdf";
 
+	/**
+	 * Procedimiento que genera un PDF con la información de la venta y del comprador con un formato ticket y lo guarda en una carpeta dentro del proyecto.
+	 * 
+	 * @param tituloPelicula Título de la película seleccionada por el comprador.
+	 * @param nombreCompleto Nombre y apellidos del comprador.
+	 * @param tipoAsiento Tipo de asiento seleccionado en la compra.
+	 * @param cantidadAsientos Cantidad de asientos/entradas seleccionadas en la compra.
+	 * @param precioTotal Coste total de la compra, que depende de la cantidad y el tipo de asientos.
+	 */
 	public static void imprimirEntrada(String tituloPelicula, String nombreCompleto, String tipoAsiento, int cantidadAsientos, double precioTotal)
 	{
 		LocalDateTime ahora = LocalDateTime.now();

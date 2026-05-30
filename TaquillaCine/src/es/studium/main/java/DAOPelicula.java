@@ -7,6 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase Data Access Object para gestionar el objeto Película de la base de datos.
+ * 
+ * @author Manuel Camacho Font
+ * @author José Leopoldo Ruiz Moreno
+ * @version 1.0
+ */
 public class DAOPelicula
 {
 
@@ -17,6 +24,11 @@ public class DAOPelicula
 		this.conexion = connect;
 	}
 
+	/**
+	 * Función para obtener el listado de las películas de la base de datos.
+	 * 
+	 * @return Devuelve un listado con todas las películas disponibles y las guarda en un array con sus valores.
+	 */
 	public List<Pelicula> obtenerPeliculas()
 	{
 		List<Pelicula> listaPeliculas = new ArrayList<>();
@@ -32,7 +44,7 @@ public class DAOPelicula
 				listaPeliculas.add(p);
 			}
 		} catch (SQLException sqle) {
-			System.out.println("Error al leer: " + sqle.getMessage());
+			System.err.println("Error al leer: " + sqle.getMessage());
 		}
 		return listaPeliculas;
 	}

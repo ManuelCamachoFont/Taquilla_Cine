@@ -12,11 +12,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Panel de confirmación en el que se muestran todos los datos guardados en memoria de la compra para llevarla a cabo o no
+ * 
+ * @author Manuel Camacho Font
+ * @author José Leopoldo Ruiz Moreno
+ * @version 1.0
+ */
 public class PanelConfirm extends JPanel
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private JLabel lblTitulo = new JLabel("Confirmar compra", JLabel.CENTER);
@@ -31,7 +35,6 @@ public class PanelConfirm extends JPanel
 	private Color fondo = new Color(11,15, 25);
 	private Color colorBoton = new Color(22, 27, 38);
 	private Color colorTitulo = new Color(0, 229, 255);
-	private Color colorTxt = new Color (138, 153, 173);
 	
 	public PanelConfirm() {
 		setLayout(new BorderLayout(10,10));
@@ -65,6 +68,11 @@ public class PanelConfirm extends JPanel
 	
 	public JButton getBtnAceptar() { return this.btnAceptar; }
 	
+	/**
+	 * Procedimiento para establecer el resumen de la compra en el panel de confirmación
+	 * 
+	 * @param htmlResumen HTML creado en la clase GeneradorHTML que recibe para aplicarlo a la vista y mostrar el resumen de la compra
+	 */
 	public void setResumen(String htmlResumen) {
 		this.txaResumen.setText(htmlResumen);
 	}

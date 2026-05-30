@@ -8,6 +8,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * Clase principal de la Vista que actúa como contenedor de la interfaz gráfica.
+ * 
+ * @author Manuel Camacho Font
+ * @author José Leopoldo Ruiz Moreno
+ */
 public class Vista {
 
     private JFrame ventana = new JFrame("CineLema");
@@ -29,8 +35,8 @@ public class Vista {
         ventana.setSize(1182,665);
         ventana.setLocationRelativeTo(null);
         ventana.setIconImage(icono);
-        //Fuck AWT... con esto se cierra la ventana... WHAT!
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
         ventana.setResizable(false);
         panelHome.setBackground(fondo);
@@ -51,35 +57,43 @@ public class Vista {
         ventana.setVisible(true);
        
     }
+    
+    /**
+     * Cambia de panel en el CardLayout y muestra el panel seleccionado
+     * @param nombre Nombre del panel al que se quiere cambiar
+     */
     public void mostrarPanel(String nombre) {
     	paneles.show(panelPrincipal, nombre);
     }
-    public PanelHome getPanelHome() {
-        return panelHome;
-    }
-    public PanelEventos getPanelEventos() {
-    	return panelEventos;
-    }
-    public PanelCompra getPanelCompra() {
-    	return panelCompra;
-    }
-    public PanelConfirm getPanelConfirm() {
-    	return panelConfirm;
-    }
-    public PanelFin getPanelFin() {
-    	return panelFin;
-    }
     
-    public JFrame getVentana() {
-    	return ventana;
-    }
     
+    // Getters de paneles
+    
+    public PanelHome getPanelHome() { return panelHome; }
+    
+    public PanelEventos getPanelEventos() { return panelEventos; }
+    
+    public PanelCompra getPanelCompra() { return panelCompra; }
+    
+    public PanelConfirm getPanelConfirm() {	return panelConfirm; }
+    
+    public PanelFin getPanelFin() { return panelFin; }
+    
+    public JFrame getVentana() { return ventana; }    
+    
+    
+    /**
+     * Muestra y redimensiona PanelHome
+     */
     public void cargarPanelHome() {
         mostrarPanel("HOME");
         getVentana().setSize(1182, 665);
         getVentana().setLocationRelativeTo(null);
     }
     
+    /**
+     * Muestra y redimensiona PanelEventos
+     */
     public void cargarPanelEventos() {
         getVentana().setVisible(false);
         mostrarPanel("INFO");
@@ -89,18 +103,27 @@ public class Vista {
         getVentana().setVisible(true);
     }
     
+    /**
+     * Muestra y redimensiona PanelCompra
+     */
     public void cargarPanelCompra() {
         mostrarPanel("COMPRA");
         getVentana().setSize(500, 300);
         getVentana().setLocationRelativeTo(null);
     }
     
+    /**
+     * Muestra y redimensiona PanelConfirm
+     */
     public void cargarPanelConfirmar() {
         mostrarPanel("RESUMEN");
         getVentana().setSize(600, 600);
         getVentana().setLocationRelativeTo(null);
     }
     
+    /**
+     * Muestra y redimensiona PanelFin
+     */
     public void cargarPanelFin() {
         mostrarPanel("FIN");
         getVentana().setSize(500, 300);

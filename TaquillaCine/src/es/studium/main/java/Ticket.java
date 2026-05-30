@@ -1,5 +1,12 @@
 package es.studium.main.java;
 
+/**
+ * Clase objeto Ticket para gestionar los Tickets en la aplicación.
+ * 
+ * @author Manuel Camacho Font
+ * @author José Luis Ruiz Moreno
+ * @version 1.0
+ */
 public class Ticket
 {
 
@@ -39,6 +46,9 @@ public class Ticket
 		this.precio = precio;
 	}
 
+	/**
+	 * Simplifica un objeto Ticket en su tipo y precio para el manejo y la visualización del objeto.
+	 */
 	@Override
 	public String toString()
 	{
