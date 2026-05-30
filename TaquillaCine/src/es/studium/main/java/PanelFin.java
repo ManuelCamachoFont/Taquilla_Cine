@@ -10,11 +10,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Panel final de agradecimiento en el que se muestra un mensaje y da opción de continuar comprando o imprimir el ticket.
+ * 
+ * @author Manuel Camacho Font
+ * @author José Leopoldo Ruiz Moreno
+ * @version 1.0
+ */
 public class PanelFin extends JPanel
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private JTextArea txaGracias = new JTextArea(10, 10);

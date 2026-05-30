@@ -17,10 +17,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * Panel de compra en el que el usuario puede seleccionar diferentes opciones e introducir sus datos para realizar la compra de una entrada a el evento.
+ * 
+ * @author Manuel Camacho Font
+ * @author José Leopoldo Ruiz Moreno
+ * @version 1.0
+ */
 public class PanelCompra extends JPanel
 {
 	
 	private static final long serialVersionUID = 1L;
+	
 	private JLabel lblTitulo = new JLabel("Selección de entradas", JLabel.CENTER);
 	private JLabel lblEvento = new JLabel("Película");
 	private JComboBox<String> choEventos = new JComboBox<>();
@@ -124,8 +132,11 @@ public class PanelCompra extends JPanel
 	    
 	}
 	
-	// Poblar combos
-	
+	/**
+	 * Actualiza el JComboBox con la cartelera actual.
+	 * 
+	 * @param cartelera Listado con todas las películas disponibles.
+	 */
 	public void poblarPeliculas(List<Pelicula> cartelera) {
 	    choEventos.removeAllItems();
 	    choEventos.addItem("Selecciona una película...");
@@ -134,6 +145,11 @@ public class PanelCompra extends JPanel
 	    }
 	}
 	
+	/**
+	 * Actualiza el JComboBox con los asientos existentes.
+	 * 
+	 * @param asientos Listado con todos los tipos de asiento disponibles.
+	 */
 	public void poblarAsientos(List<Ticket> asientos) {
 	    choTipoAsiento.removeAllItems();
 	    choTipoAsiento.addItem("Tipo de asiento..."); 
@@ -142,6 +158,7 @@ public class PanelCompra extends JPanel
 	    }
 	}
 
+	
 	// Getters Elementos
 	
 	public JComboBox<String> getChoEventos() { return this.choEventos; }
@@ -177,6 +194,9 @@ public class PanelCompra extends JPanel
 	
 	
 	
+	/**
+	 * Reinicia todos los campos dejando los JTextField en blanco y los JComboBox en la opción predeterminada.
+	 */
 	public void limpiarCampos() {
 	    choEventos.setSelectedIndex(0);
 	    txtNombre.setText("");
@@ -186,6 +206,9 @@ public class PanelCompra extends JPanel
 	    choTipoAsiento.setSelectedIndex(0);
 	}
 
+	/**
+	 * Reinicia el color de fondo de todos los campos.
+	 */
 	public void reinicioVisualCampos() {
 	    choEventos.setBackground(blanco);
 	    txtNombre.setBackground(blanco);
@@ -195,6 +218,11 @@ public class PanelCompra extends JPanel
 	    choTipoAsiento.setBackground(blanco);
 	}
 
+	/**
+	 * Procedimiento para verificar que la información y selección de todos los campos cumplen con los requerimientos de la aplicación. Que no estén vacíos y admitan el dato correspondiente.
+	 * 
+	 * @return Devuelve un booleano, true si pasa la validación, o false si no.
+	 */
 	public boolean validarCampos() {
 	    reinicioVisualCampos();
 
@@ -253,6 +281,13 @@ public class PanelCompra extends JPanel
 	    return true;
 	}
 
+	/**
+	 * Procedimiento que muestra que campo no ha cumplido la verificación llamando al diálogo de la clase ControlErrores.java
+	 * 
+	 * @param elemento Componente en el cuál se ha producido el error
+	 * @param mensajeError Mensaje personalizado que recibe para especificar el error
+	 * @param tituloDialogo Título que va a mostrar en el diálogo para el error
+	 */
 	private void marcarErrorCampo(JComponent elemento, String mensajeError, String tituloDialogo) {
 	    elemento.setBackground(colorError);
 	    elemento.requestFocus();

@@ -1,5 +1,12 @@
 package es.studium.main.java;
 
+/**
+ * Clase objeto Película para gestionar las películas en la aplicación.
+ * 
+ * @author Manuel Camacho Font
+ * @author José Luis Ruiz Moreno
+ * @version 1.0
+ */
 public class Pelicula
 {
 
@@ -66,6 +73,10 @@ public class Pelicula
 		this.sinopsis = sinopsis;
 	}
 
+	
+	/**
+	 * Simplifica un objeto Película en su Título para el manejo y la visualización del objeto.
+	 */
 	@Override
 	public String toString()
 	{
